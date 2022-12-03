@@ -1,24 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import { ThemeProvider } from "styled-components";
+import GlobalStyles from "./components/styles/Global.styled";
+import { Container } from "./components/styles/Container.styled";
+import React from "react";
+import Header from "./components/Header";
+import content from "./Content";
+import Card from "./components/Card";
+import Footer from "./components/Footer";
+
+// we can put this theme object in different file , if it is big.
+// wrap <ThemeProvider > around the whole element.
+const theme = {
+  color: {
+    header: "#ebfbff",
+    body: "#fff",
+    footer: "#003333",
+  },
+  mobile: "768px",
+};
+
+const cards = content.map((card, index) => {
+  return <Card item={card} key={index} />;
+});
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <>
+        <GlobalStyles />
+        <Header />
+        <Container>{cards}</Container>
+        <Footer />
+      </>
+    </ThemeProvider>
   );
 }
 
